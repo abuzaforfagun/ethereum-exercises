@@ -20,7 +20,7 @@ func Execute(db *sql.DB) {
 	rootCommand.AddCommand(detailsWalletCmd(db))
 	rootCommand.AddCommand(listWalletsCmd(db))
 	rootCommand.AddCommand(removeWalletCmd(db))
-	rootCommand.AddCommand(exportWalletsCmd)
+	rootCommand.AddCommand(exportWalletsCmd(db))
 
 	if err := rootCommand.Execute(); err != nil {
 		log.Panicf("Unable to execute command %v", err)
