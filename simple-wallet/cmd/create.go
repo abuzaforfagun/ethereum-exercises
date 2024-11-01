@@ -26,6 +26,7 @@ func createWalletCmd(db *sql.DB) *cobra.Command {
 			address, err := createWallet(db, walletName)
 			if err != nil {
 				fmt.Println("Unable to create wallet.", err)
+				return
 			}
 			fmt.Println("Wallet created! Address: ", address)
 		},
