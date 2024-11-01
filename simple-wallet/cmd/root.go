@@ -19,7 +19,7 @@ func Execute(db *sql.DB) {
 	rootCommand.AddCommand(createWalletCmd(db))
 	rootCommand.AddCommand(detailsWalletCmd(db))
 	rootCommand.AddCommand(listWalletsCmd(db))
-	rootCommand.AddCommand(removeWalletCmd)
+	rootCommand.AddCommand(removeWalletCmd(db))
 	rootCommand.AddCommand(exportWalletsCmd)
 
 	if err := rootCommand.Execute(); err != nil {
