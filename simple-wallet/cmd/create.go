@@ -2,9 +2,11 @@ package cmd
 
 import (
 	"database/sql"
+	"errors"
 	"fmt"
 	"os"
 
+	"github.com/abuzaforfagun/ethereum-exercises/simple-wallet/cryptography"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/spf13/cobra"
 )
@@ -21,16 +23,25 @@ func createWalletCmd(db *sql.DB) *cobra.Command {
 				os.Exit(1)
 			}
 			walletName := args[0]
-			address := createWallet(db, walletName)
-			fmt.Println("Account created! Address: ", address)
+			address, err := createWallet(db, walletName)
+			if err != nil {
+				fmt.Println("Unable to create wallet.", err)
+			}
+			fmt.Println("Wallet created! Address: ", address)
 		},
 	}
 }
 
-func createWallet(db *sql.DB, name string) string {
+func createWallet(db *sql.DB, name string) (string, error) {
 	privateKey, err := crypto.GenerateKey()
 	if err != nil {
-		fmt.Println("Unable to generate the key")
+		return "", errors.New("unable to get encryption private key")
+	}
+
+	encryptedPrivateKey, err := cryptography.Encrypt(string(crypto.FromECDSA(privateKey)))
+
+	if err != nil {
+		return "", err
 	}
 
 	address := crypto.PubkeyToAddress(privateKey.PublicKey)
@@ -38,11 +49,10 @@ func createWallet(db *sql.DB, name string) string {
 
 	sql := "INSERT INTO wallet (name, address, private_key) VALUES (?, ?, ?)"
 
-	_, err = db.Exec(sql, name, addressHex, privateKey.D.Bytes())
+	_, err = db.Exec(sql, name, addressHex, encryptedPrivateKey)
 
 	if err != nil {
-		fmt.Println("Unable to store the generated key")
-		return ""
+		return "", errors.New("unable to store the generated key")
 	}
-	return addressHex
+	return addressHex, nil
 }
