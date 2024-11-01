@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"database/sql"
 	"log"
 
 	"github.com/spf13/cobra"
@@ -14,10 +15,10 @@ var rootCommand = &cobra.Command{
 	},
 }
 
-func Execute() {
-	rootCommand.AddCommand(createWalletCmd)
+func Execute(db *sql.DB) {
+	rootCommand.AddCommand(createWalletCmd(db))
 	rootCommand.AddCommand(displayWalletCmd)
-	rootCommand.AddCommand(listWalletsCmd)
+	rootCommand.AddCommand(listWalletsCmd(db))
 	rootCommand.AddCommand(removeWalletCmd)
 	rootCommand.AddCommand(exportWalletsCmd)
 
