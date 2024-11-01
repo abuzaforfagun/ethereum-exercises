@@ -17,7 +17,7 @@ var rootCommand = &cobra.Command{
 
 func Execute(db *sql.DB) {
 	rootCommand.AddCommand(createWalletCmd(db))
-	rootCommand.AddCommand(displayWalletCmd)
+	rootCommand.AddCommand(detailsWalletCmd(db))
 	rootCommand.AddCommand(listWalletsCmd(db))
 	rootCommand.AddCommand(removeWalletCmd)
 	rootCommand.AddCommand(exportWalletsCmd)
