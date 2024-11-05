@@ -9,6 +9,7 @@ The goal of this repository is to offer simple yet effective exercises that can 
 ### Current Exercises
 
 - [Wallet Exercises](simple-wallet)
+- [Smart contract Event Listener](smart-contract-event-listener)
 
 ## Getting Started
 
