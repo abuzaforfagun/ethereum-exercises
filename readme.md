@@ -10,6 +10,7 @@ The goal of this repository is to offer simple yet effective exercises that can 
 
 - [Wallet Exercises](simple-wallet)
 - [Smart contract Event Listener](smart-contract-event-listener)
+- [Gas Price Estimator](gas-price-estimator)
 
 ## Getting Started
 
