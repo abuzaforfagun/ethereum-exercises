@@ -10,6 +10,7 @@ _Objective_: Develop an API to retrieves the current gas price from an Ethereum 
 2. Set the value as envrionrment variable `infuraKey`
 3. `cd gas-price-estimator`
 4. From terminal `go run .`
+5. API will be served at address `:8080` (ex: `http://localhost:8080`)
 
 ## API Details
 
